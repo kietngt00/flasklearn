@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
+    finish = db.Column(db.String(5), nullable=False)
     date_created = db.Column(db.DateTime, default = datetime.utcnow)
 
     def __repr__(self):
@@ -19,7 +20,7 @@ class Todo(db.Model):
 def index():
     if request.method == "POST":
         task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        new_task = Todo(content=task_content, finish='No')
 
         try:
             db.session.add(new_task)
@@ -29,7 +30,7 @@ def index():
             return "There was an issue adding your task"
 
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all() # try first
+        tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', tasks = tasks)
 
 @app.route('/delete/<int:id>')
