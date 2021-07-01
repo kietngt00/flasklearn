@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
-    finish = db.Column(db.String(5), nullable=False)
+    finish = db.Column(db.String(3), default='No')
     date_created = db.Column(db.DateTime, default = datetime.utcnow)
 
     def __repr__(self):
@@ -50,6 +50,7 @@ def update(id):
 
     if request.method == "POST":
         task.content = request.form['content']
+        task.finish = request.form['finish']
         try:
             db.session.commit()
             return redirect('/')
