@@ -20,13 +20,13 @@
         </tr>
         {% for task in tasks %}
             <tr>
-                <td>{{ task[0] }}</td>
-                <td>{{ task[1]}}</td>
-                <td>{{ task[3] }}</td>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created}}</td>
+                <td>{{ task.finish }}</td>
                 <td>
-                    <a href="/delete/{{task[2]}}">Delete</a>
+                    <a href="/delete/{{task.id}}">Delete</a>
                     <br>
-                    <a href="/update/{{task[2]}}">Update</a>
+                    <a href="/update/{{task.id}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
